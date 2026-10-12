@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10283b">
+<title>LG 시스템에어컨 모델 자료실</title>
+<style>
+:root { color-scheme: light; --navy: #10283b; --teal: #087e83; --ink: #172b3b; --muted: #627587; --line: #dce5e9; --paper: #f3f7f8; } * { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; } button, input, a { font: inherit; }
+a { color: var(--teal); } .top { padding: 23px max(20px, calc((100vw - 1180px)/2)) 22px; background: var(--navy); color: white; }
+.topline { display: flex; align-items: center; justify-content: space-between; gap: 16px; } .eyebrow { margin: 0 0 4px; color: #9edbd7; font-size: 12px; font-weight: 700; letter-spacing: .12em; }
+.top h1 { margin: 0; font-size: clamp(22px, 4vw, 30px); line-height: 1.2; } .sub { margin: 7px 0 0; color: #c5d2dc; font-size: 13px; }
+.lats { display: inline-flex; align-items: center; padding: 9px 12px; border: 1px solid #71909e; border-radius: 8px; color: white; font-weight: 650; text-decoration: none; white-space: nowrap; }
+.wrap { max-width: 1180px; margin: auto; padding: 24px 20px 40px; } .toolbar { display: grid; grid-template-columns: minmax(220px, 1fr) auto; gap: 14px; align-items: end; margin-bottom: 16px; }
+.field label, .filter-label { display: block; margin-bottom: 6px; color: var(--muted); font-size: 12px; font-weight: 700; }
+.search { width: 100%; height: 46px; padding: 0 14px; border: 1px solid #c9d6dc; border-radius: 9px; color: var(--ink); outline: none; }
+.search:focus, button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid #79c9c6; outline-offset: 2px; } .filters, .suggest { display: flex; gap: 7px; }
+.filters button, .suggest button { padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: white; color: #43596a; cursor: pointer; }
+.filters button[aria-pressed="true"] { border-color: var(--navy); background: var(--navy); color: white; } .suggest { align-items: center; flex-wrap: wrap; margin: 0 0 18px; color: var(--muted); font-size: 12px; }
+.suggest button { padding: 5px 9px; color: var(--teal); font-size: 12px; font-weight: 700; } .grid { display: grid; grid-template-columns: minmax(240px, .76fr) minmax(0, 1.5fr); gap: 16px; align-items: start; }
+.panel { min-width: 0; border: 1px solid var(--line); border-radius: 13px; background: white; box-shadow: 0 5px 18px #17364908; }
+.list-head { padding: 16px 17px 12px; border-bottom: 1px solid var(--line); font-weight: 750; } .count { margin-left: 5px; color: var(--teal); font-variant-numeric: tabular-nums; }
+.items { max-height: 600px; padding: 7px; overflow: auto; }
+.item { display: block; width: 100%; padding: 11px 12px; border: 0; border-radius: 8px; background: white; color: var(--ink); text-align: left; cursor: pointer; } .item:hover { background: #f1f7f7; }
+.item[aria-current="true"] { background: #e7f4f3; box-shadow: inset 3px 0 var(--teal); } .model { display: block; font-weight: 750; overflow-wrap: anywhere; }
+.item small { display: block; margin-top: 2px; color: var(--muted); } .empty { padding: 22px; color: var(--muted); text-align: center; }
+.detail { padding: 22px; } .detail h2 { margin: 0 0 4px; font-size: 24px; line-height: 1.3; overflow-wrap: anywhere; }
+.detail .name { margin: 0 0 18px; color: var(--muted); }
+.badge { display: inline-block; margin-bottom: 10px; padding: 3px 8px; border-radius: 99px; background: #e7f4f3; color: #087276; font-size: 12px; font-weight: 700; }
+.specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: var(--line); }
+.spec { min-width: 0; padding: 12px 14px; background: #fbfdfd; } .spec span { display: block; color: var(--muted); font-size: 12px; }
+.spec:last-child { grid-column: 1 / -1; } .spec strong { display: block; margin-top: 3px; overflow-wrap: anywhere; } .meta, .notice { color: var(--muted); font-size: 12px; }
+.meta { margin: 16px 0; } .actions { display: flex; flex-wrap: wrap; gap: 9px; margin: 16px 0 10px; }
+.primary, .secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 9px 13px; border-radius: 8px; font-weight: 700; text-decoration: none; }
+.primary { background: var(--teal); color: white; } .secondary { border: 1px solid var(--line); color: var(--ink); }
+.pdfbox { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); } .pdfbox summary { color: var(--teal); font-weight: 700; cursor: pointer; }
+.pdfbox iframe { display: block; width: 100%; height: min(72vh, 720px); margin-top: 12px; border: 1px solid var(--line); border-radius: 8px; } .notice { margin: 18px 0 0; }
+.notice a { font-weight: 650; } .notice .disclaimer { display: block; margin-top: 5px; }
+@media (max-width: 700px) {
+  .topline { align-items: flex-start; } .top { padding: 20px; } .wrap { padding: 18px 14px 30px; }
+  .toolbar, .grid { grid-template-columns: 1fr; gap: 10px; } .filters { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .filters button { padding: 9px 6px; } .items { max-height: 260px; } .detail { padding: 18px; }   .detail h2 { font-size: 21px; } .pdfbox iframe { height: 62vh; }
+}
+@media (max-width: 380px) {
+  .topline { flex-direction: column; } .lats { padding: 7px 10px; }   .spec { padding: 10px; } .spec:last-child { grid-column: 1 / -1; } .spec strong { font-size: 14px; }
+}</style>
+</head>
+<body>
+<header class="top">
+  <div class="topline"><div><p class="eyebrow">FIELD REFERENCE · LG HVAC</p><h1>시스템에어컨 모델 자료실</h1><p class="sub">모델명을 검색해 주요 사양과 카탈로그 원문을 확인하세요.</p></div><a class="lats" href="lats.html">LATS 자료 안내 ↗</a></div>
+</header>
+<main class="wrap">
+  <section class="toolbar" aria-label="모델 검색 및 분류">
+    <div class="field"><label for="query">모델명 또는 제품명</label><input id="query" class="search" type="search" placeholder="예: RNW, RPUW" autocomplete="off"></div>
+    <div><span class="filter-label">제품 구분</span><div class="filters" role="group" aria-label="제품 구분"><button type="button" data-category="전체" aria-pressed="true">전체</button><button type="button" data-category="실내기" aria-pressed="false">실내기</button><button type="button" data-category="실외기" aria-pressed="false">실외기</button></div></div>
+  </section>
+  <div class="suggest" aria-label="추천 검색"><span>빠른 검색</span><button type="button" data-query="RNW">RNW</button><button type="button" data-query="RPUW">RPUW</button></div>
+  <div class="grid">
+    <section class="panel" aria-label="검색 결과"><div class="list-head">검색 결과 <span id="count" class="count" aria-live="polite">0</span></div><div id="items" class="items"></div></section>
+    <section id="detail" class="panel detail" aria-label="모델 상세 정보"><div class="empty">모델을 선택하면 상세 사양이 표시됩니다.</div></section>
+  </div>
+  <p id="notice" class="notice"></p>
+</main>
+<script src="data.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const query = $("query"), itemBox = $("items"), detail = $("detail");
+const catalog = window.CATALOG, models = Array.isArray(catalog?.models) ? catalog.models : [];
+let category = "전체", selected = null;
+const norm = s => String(s ?? "").toLowerCase().replace(/[\s-]+/g, "");
+function addText(parent, tag, className, value) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  el.textContent = value; parent.append(el); return el;
+}
+function renderDetail(m) {
+  detail.replaceChildren();
+  if (!m) return addText(detail, "div", "empty", "검색 결과가 없습니다. 검색어를 지우거나 분류를 바꿔 보세요.");
+  addText(detail, "span", "badge", `${m.category || "제품"} · ${m.family || "제품군 확인"}`);
+  addText(detail, "h2", "", m.model || "모델명 확인");
+  addText(detail, "p", "name", m.name || "명칭 원문 확인");
+  const specs = document.createElement("div"); specs.className = "specs";
+  [["냉방 능력", m.cooling == null ? "원문 확인" : `${m.cooling} kW`], ["난방 능력", m.heating == null ? "원문 확인" : `${m.heating} kW`], ["전원", m.power || "원문 확인"], ["본체 크기 (가로 × 높이 × 깊이)", m.size || "원문 확인"], ["본체 무게", m.weight || "원문 확인"]].forEach(([label, value]) => {
+    const cell = document.createElement("div"); cell.className = "spec";
+    addText(cell, "span", "", label); addText(cell, "strong", "", value); specs.append(cell);
+  });
+  detail.append(specs);
+  addText(detail, "p", "meta", `자료: ${catalog?.sourceTitle || "출처 확인"} · 발행 ${catalog?.publication || "일자 확인"} · 확인 ${catalog?.checkedAt || "일자 확인"} · PDF ${m.page || "확인 필요"}쪽 (인쇄 ${m.printedPages || "원문 확인"}쪽)`);
+  const actions = document.createElement("div"), pdf = m.pdf || ""; actions.className = "actions";
+  if (pdf) {
+    const open = document.createElement("a");
+    Object.assign(open, { className: "primary", href: `${pdf}#page=${Number(m.page) || 1}`, target: "_blank", rel: "noopener", textContent: "원본 PDF 열기 ↗" }); actions.append(open);
+  }
+  if (m.sourceUrl || catalog?.sourceUrl) {
+    const src = document.createElement("a");
+    Object.assign(src, { className: "secondary", href: m.sourceUrl || catalog.sourceUrl, target: "_blank", rel: "noopener", textContent: "자료 출처 ↗" }); actions.append(src);
+  }
+  detail.append(actions);
+  if (pdf) {
+    const box = document.createElement("details"), frame = document.createElement("iframe"); box.className = "pdfbox";
+    addText(box, "summary", "", "페이지 안에서 PDF 보기");
+    Object.assign(frame, { title: `${m.model || "모델"} 원본 카탈로그 PDF`, loading: "lazy", src: `${pdf}#page=${Number(m.page) || 1}` });
+    box.append(frame); detail.append(box);
+  }
+}
+function render() {
+  const term = query.value.trim(), n = norm(term);
+  const found = models.filter(m => (category === "전체" || m.category === category) && (!term || norm(m.model).includes(n) || norm(m.name).includes(n) || norm(m.family).includes(n)));
+  $("count").textContent = `${found.length}개`; itemBox.replaceChildren();
+  if (!found.length) {
+    selected = null; renderDetail(null);
+    addText(itemBox, "div", "empty", models.length ? `등록된 ${models.length}개 모델에서 찾지 못했습니다.` : "모델 데이터가 아직 연결되지 않았습니다.");
+    const reset=addText(itemBox,"button","secondary","검색 초기화"); reset.type="button"; reset.onclick=()=>{query.value=""; document.querySelector("[data-category=전체]").click(); query.focus();}; return;
+  }
+  if (!found.includes(selected)) selected = found[0];
+  found.forEach(m => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "item";
+    b.setAttribute("aria-current", String(m === selected));
+    addText(b, "span", "model", m.model || "모델명 확인");
+    addText(b, "small", "", `${m.name || "명칭 확인"} · ${m.category || "제품"}`);
+    b.addEventListener("click", () => { selected = m; render(); itemBox.querySelector("[aria-current=true]").focus({preventScroll:true}); }); itemBox.append(b);
+  });
+  renderDetail(selected);
+}
+query.addEventListener("input", render);
+document.querySelectorAll("[data-category]").forEach(b => b.addEventListener("click", () => {
+  category = b.dataset.category;
+  document.querySelectorAll("[data-category]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  render();
+}));
+document.querySelectorAll("[data-query]").forEach(b => b.addEventListener("click", () => { query.value = b.dataset.query; render(); query.focus(); }));
+const note = $("notice");
+if (catalog) {
+  const source = document.createElement("a");
+  Object.assign(source, { href: catalog.sourceUrl || "#", textContent: catalog.sourceTitle || "출처 자료", target: "_blank", rel: "noopener" });
+  note.append("자료 발행 기준 ", catalog.publication || "확인 필요", " · 데이터 확인일 ", catalog.checkedAt || "확인 필요", " · ", source, document.createElement("br"));
+  addText(note, "span", "disclaimer", "독립 조회 도구입니다. 전체 제품 목록을 보장하지 않으며, 적용 전 반드시 제조사 원문을 확인하세요.");
+} else addText(note, "span", "disclaimer", "data.js의 모델 데이터가 연결되면 검색할 수 있습니다.");
+render();
+</script>
+</body>
+</html>
